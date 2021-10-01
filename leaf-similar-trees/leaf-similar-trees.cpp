@@ -16,8 +16,8 @@ public:
         if(root==NULL)return;
         if(root->left==NULL && root->right==NULL) ans.push_back(root->val);
         
-        dfs(root->left,ans);
         dfs(root->right,ans);
+        dfs(root->left,ans);
     }    
     
     bool leafSimilar(TreeNode* root1, TreeNode* root2) {
