@@ -12,8 +12,6 @@
 class Solution {
 public:
     bool isUnivalTree(TreeNode* root,int val=-1) {
-        if(root==NULL)return true;
-        return ((root->val==val || val==-1) && isUnivalTree(root->left, root->val) && isUnivalTree(root->right,root->val));
-      
+       return (root==NULL) || ((root->val==val || val==-1) && isUnivalTree(root->left, root->val) && isUnivalTree(root->right,root->val));
     }
 };
