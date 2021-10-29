@@ -67,3 +67,14 @@ public:
 
     }
 };
+
+
+
+/****
+
+Time Complexity : Tme complexity of insertion of one element in minheap will be(klogk). Hence for n such element it will be O(nkogk). Total time complexity= O(Nlogk), where N=nk.
+
+Space Complexity : O(k), since there can be maximum k element at a time in minheap.
+
+
+****/
