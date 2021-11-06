@@ -1,16 +1,22 @@
 class Solution {
 public:
-    int fibonnaci(int n){
-        if(n==0){
-            return 0;
+    int dp[35];
+    int f(int n){
+         if(n==0 || n==1){
+            return n;
+         }
+        if(dp[n]!=-1){
+            return dp[n];
         }
-        if(n==1){
-            return 1;
-         
-        }
-        return fibonnaci(n-1)+fibonnaci(n-2);
+        dp[n]=f(n-1)+f(n-2);
+        return dp[n];
     }
+    
     int fib(int n) {
-        return fibonnaci(n);
+       memset(dp,-1,sizeof(dp));
+        dp[0]=0;
+        dp[1]=1;
+        return f(n);
+       
     }
 };
