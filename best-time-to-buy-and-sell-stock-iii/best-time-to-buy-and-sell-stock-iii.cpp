@@ -1,6 +1,6 @@
 class Solution {
 public:
-     int bestTime(vector<int>&prices,int currentDay,bool canBuy,int transCount,vector<vector<vector<int>>>&dp){
+    int bestTime(vector<int>&prices,int currentDay,bool canBuy,int transCount,vector<vector<vector<int>>>&dp){
         if(currentDay >= prices.size() || transCount<=0){
             return 0;
         }
