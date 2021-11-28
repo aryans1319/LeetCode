@@ -1,17 +1,31 @@
 class Solution {
 public:
-    int uniquePaths(int m, int n) {
-          int N = n+m-2; // total steps = n-1 + m-1
-        int r = min(n,m) - 1; // will iterate on the minimum for efficiency = (total) C (min(right, down))
-        
-        double res = 1;
-        
-		// compute nCr
-        for(int i=1; i<=r; ++i, N--){
-            
-            res = res * (N) / i;
+    int totalPaths(int  i , int j, int m , int n,unordered_map<string,int>&mp){
+        if( i>= m || j>=n ){
+            return 0;
         }
         
-        return (int)res;
+        if(i==m-1 && j==n-1){
+            return 1;
+        }
+        
+        string currentKey = to_string(i)+ "_" + to_string(j);
+        
+        if(mp.find(currentKey)!=mp.end()){
+            return mp[currentKey];
+        }
+        
+        int moveRight = totalPaths(i,j+1,m,n,mp);
+        int moveDown = totalPaths(i+1,j,m,n,mp);
+        
+        mp[currentKey] = moveRight+moveDown;
+        
+        return  mp[currentKey];
+    }
+    
+    
+    int uniquePaths(int m, int n) {
+        unordered_map<string,int>mp;
+      return totalPaths(0,0,m,n,mp);
     }
 };
