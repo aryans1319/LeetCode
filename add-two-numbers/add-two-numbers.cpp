@@ -48,8 +48,8 @@ public:
             int res = total % 10;
              l1 = l1->next;
             
-            // ListNode *newNode = new ListNode(res);
-            dummyNode->next = new ListNode(res);
+            ListNode *newNode = new ListNode(res);
+            dummyNode->next = newNode;
             dummyNode = dummyNode->next;
            
         }
@@ -59,14 +59,15 @@ public:
            
                 carry = total/10;
                 int res = total %10;
-            l2 = l2->next;
+                l2 = l2->next;
             
-            // ListNode *newNode = new ListNode(res);
-            dummyNode->next = new ListNode(res);
+            ListNode *newNode = new ListNode(res);
+            dummyNode->next = newNode;
             dummyNode = dummyNode->next;
             
         }
         if(carry){
+            ListNode *newNode = new ListNode(1);
             dummyNode->next = new ListNode(carry);
             
         }
