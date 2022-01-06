@@ -5,14 +5,10 @@ public:
         int mx = 0;
         int k=2;
         
-        if(fruits.size()==1){
-            return 1;
-        }
-        
     unordered_map<int,int> memo;
     while(j<fruits.size()){
         memo[fruits[j]]++;
-        // if(memo.size()<k){
+        // if(memo.size()<=k){
         //     j++;
         // }
         if(memo.size()<=k){
@@ -31,7 +27,6 @@ public:
             j++;
         }
     }
-    return mx;
-
+     return mx;
     }
 };
