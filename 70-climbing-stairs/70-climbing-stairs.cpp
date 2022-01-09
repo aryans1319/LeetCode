@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int countWays(int currentStair, int targetStair,unordered_map<int,int>&mp){
+    int totalWays(int targetStair, int currentStair,unordered_map<int,int>&mp){
         if(currentStair == targetStair){
             return 1;
         }
@@ -11,20 +11,21 @@ public:
         
         int currentKey = currentStair;
         
-        if(mp.find(currentKey)!=mp.end()){
+        if(mp.find(currentKey) != mp.end() ){
             return mp[currentKey];
         }
         
-        int oneStep = countWays(currentStair+1 , targetStair,mp);
-        int twoStep = countWays(currentStair+2 , targetStair,mp);
+        int oneStep = totalWays(targetStair, currentStair+1,mp);
+        int twoStep = totalWays(targetStair, currentStair+2,mp);
         
         mp[currentKey] = oneStep + twoStep;
+        
         return mp[currentKey];
     }
     
     
     int climbStairs(int n) {
-        unordered_map<int,int>mp;
-        return countWays(0,n,mp);
+        unordered_map<int,int> mp;
+        return totalWays(n,0,mp);
     }
 };
