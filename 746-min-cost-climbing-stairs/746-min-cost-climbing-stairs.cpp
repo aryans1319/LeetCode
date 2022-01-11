@@ -14,11 +14,13 @@ public:
         if(mp.find(currentKey)!=mp.end()){
             return mp[currentKey];
         }
+        //choices
+         // 0 --->1 jump --->>1 + cost[0]
+        int oneJump = minCost(cost, currentIndex + 1,mp) ;
         
-        int oneJump = minCost(cost, currentIndex + 1,mp) + cost[currentIndex];
-        int twoJump = minCost(cost, currentIndex + 2,mp) + cost[currentIndex];
+        int twoJump = minCost(cost, currentIndex + 2,mp);
         
-        mp[currentKey] = min(oneJump,twoJump);
+        mp[currentKey] = min(oneJump,twoJump) + cost[currentIndex];
         
         return  mp[currentKey];
         
