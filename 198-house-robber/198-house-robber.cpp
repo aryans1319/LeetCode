@@ -1,30 +1,30 @@
 class Solution {
 public:
-    int maxAmountOfMoneyRobbed(vector<int>&nums, int currentIndex,unordered_map<int,int>&mp){
+    int maxMoneyLooted(vector<int>&nums, int currentIndex,unordered_map<int,int>&mp){
+        
+        //base condition
         
         if(currentIndex >= nums.size()){
             return 0;
         }
-        
+        //choices
         int currentKey = currentIndex;
         
-         if(mp.find(currentKey)!=mp.end()){
+        if(mp.find(currentKey)!=mp.end()){
             return mp[currentKey];
         }
         
-        int rob = maxAmountOfMoneyRobbed(nums, currentIndex + 2,mp) + nums[currentIndex];
+        int lootenge = maxMoneyLooted(nums,currentIndex+2,mp) + nums[currentIndex];
+        int nhiLootenge = maxMoneyLooted(nums,currentIndex+1,mp);
         
-        int notRobbed = maxAmountOfMoneyRobbed(nums, currentIndex + 1,mp);
+        mp[currentKey] = max(lootenge,nhiLootenge);
         
-        mp[currentKey] = max(rob,notRobbed);
-        return  mp[currentKey];
+        return   mp[currentKey];
+        
     }
-    
-    
-    
     
     int rob(vector<int>& nums) {
         unordered_map<int,int>mp;
-        return maxAmountOfMoneyRobbed(nums,0,mp);
+        return maxMoneyLooted(nums,0,mp);
     }
 };
