@@ -1,29 +1,17 @@
 class Solution {
 public:
-    int nthFibonacci(int n,unordered_map<int,int>&mp){
-        if(n==0){
-            return 0;
-        }
-        if(n==1){
-            return 1;
-        }
-        
-        int currentKey = n;
-        
-        if(mp.find(currentKey)!= mp.end()){
-            return mp[currentKey];
-        }
-        
-        int leftCall = nthFibonacci(n-1,mp);
-        int rightCall = nthFibonacci(n-2,mp);
-        
-        mp[currentKey] =  leftCall + rightCall;
-        
-        return mp[currentKey] ;
-        
-    }
     int fib(int n) {
-        unordered_map<int,int>mp;
-        return nthFibonacci(n,mp);
+       int dp[n+1];
+        if(n<=1){
+            return n;
+        }
+        
+       dp[0] = 0;
+       dp[1] = 1;
+        
+        for(int i=2;i<=n;i++){
+            dp[i] = dp[i-1] + dp[i-2];
+        }
+        return dp[n];
     }
 };
