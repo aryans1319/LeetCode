@@ -15,3 +15,6 @@ public:
         return isPowerOfTwo(n/2);
     }
 };
+
+// time complexity : O(logn with base 2)
+// Space :  O(logn with base 2)   
