@@ -1,31 +1,22 @@
 class Solution {
 public:
     
-    int totalWays(int targetStair, int currentStair){
+    int totalWays(int targetStair, int currentStair,unordered_map<int,int>&mp){
         
         // Base Conditions
-        
-        if(currentStair == targetStair){
-            return 1;
-        }
-        
-        if(currentStair > targetStair){
-            return 0;
-        }
-        
-        int prev2 = 1;
-        int prev = 1;
+        mp[0]=1;
+        mp[1]=1;
+        // mp[1] = 1;
         
         for(int i=2;i<=targetStair;i++){
-            int cur_i = prev2 + prev;
-            prev2=prev;
-            prev=cur_i;
+            mp[i] = mp[i-1] + mp[i-2];
         }
-        return  prev;
+        return  mp[targetStair];
         
     }
        
     int climbStairs(int n) {
-        return totalWays(n,0);
+        unordered_map<int,int>mp;
+        return totalWays(n,0,mp);
     }
 };
