@@ -1,18 +1,37 @@
 class Solution {
 public:
-    int nthTribonacci(int n, unordered_map<int,int>&mp){
-        mp[0]=0;
-       mp[1]=1;
-        mp[2]=1;
+    int nthTribonacci(int n,unordered_map<int,int>&mp){
+             if(n==0){
+            return 0;
+        }
         
-       for(int i=3;i<=n;i++){
-           mp[i] = mp[i-3]+mp[i-2]+mp[i-1];
-       }
+        if(n==1 || n==2){
+            return 1;
+        }
         
-        return mp[n] ;
+        int currentKey = n;
+        
+        if(mp.find(currentKey)!=mp.end()){
+            return mp[currentKey];
+        }
+        
+        //choices
+        
+        int a = nthTribonacci(n-1,mp);
+        int b = nthTribonacci(n-2,mp);
+        int c = nthTribonacci(n-3,mp);
+        
+        mp[currentKey] = a+b+c;
+        
+        return a+b+c;
+        
     }
+    
+    
     int tribonacci(int n) {
         unordered_map<int,int>mp;
         return nthTribonacci(n,mp);
+   
+        
     }
 };
