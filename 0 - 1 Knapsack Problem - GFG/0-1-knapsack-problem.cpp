@@ -8,33 +8,35 @@ using namespace std;
 class Solution
 {
     public:
-    //Function to return max value that can be put in knapsack of capacity W.
-    int maxProfit(int W, int wt[],int currentIndex , int val[],int n,unordered_map<string,int>&mp){
-        if(currentIndex >= n){
-            return 0;
-        }
+    
+    int maxProfit(int W,int wt[],int val[],int n,int currentIndex,unordered_map<string,int>&mp){
         
-        int consider = INT_MIN;
+        if(currentIndex >= n){ // or if W==0 return 0
+            return 0;
+        } 
         
         string currentKey = to_string(currentIndex) + "_" + to_string(W);
         
-        if(mp.find(currentKey)!= mp.end()){
-            return mp[currentKey];
+        if(mp.find(currentKey)!=mp.end()){
+           return mp[currentKey];
         }
         
+        int pick = 0;
         if(wt[currentIndex] <= W){
-            consider = maxProfit(W-wt[currentIndex], wt,currentIndex+1,val,n,mp) + val[currentIndex];
+            pick = val[currentIndex] + maxProfit(W-wt[currentIndex], wt,val,n,currentIndex+1,mp);
         }
-        int notConsider = maxProfit(W,wt,currentIndex+1,val,n,mp);
         
-        mp[currentKey] = max(consider,notConsider);
+        int notPick = maxProfit(W,wt,val,n,currentIndex+1,mp);
+        
+        mp[currentKey] = max(pick,notPick);
         
         return  mp[currentKey];
     }
+    
     int knapSack(int W, int wt[], int val[], int n) 
     { 
-        unordered_map<string,int>mp;    
-        return maxProfit(W,wt,0,val,n,mp);
+        unordered_map<string,int>mp;
+       return maxProfit(W,wt,val,n,0,mp);
     }
 };
 
