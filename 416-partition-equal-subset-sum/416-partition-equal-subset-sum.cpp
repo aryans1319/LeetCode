@@ -21,8 +21,8 @@ public:
         consider = isPossible(nums, currentIndex + 1, targetSum - nums[currentIndex],mp);
         }
         if(consider){
-            mp[currentKey] = consider;
-            return true;
+            mp[currentKey] = true;
+            return mp[currentKey]; 
         }
         
         bool notConsider = isPossible(nums,currentIndex+1,targetSum,mp);
