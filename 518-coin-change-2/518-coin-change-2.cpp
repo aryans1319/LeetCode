@@ -31,9 +31,9 @@ public:
          unordered_map<string,int>mp;
         int ans =  findWays(coins, 0 ,amount,mp);
         
-        if(ans==100000){
-            return -1;
-        }
+        // if(ans==100000){
+        //     return -1;
+        // }
         return ans;
     }
 };
