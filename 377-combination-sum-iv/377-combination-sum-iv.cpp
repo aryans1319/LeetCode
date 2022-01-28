@@ -8,7 +8,7 @@ public:
         if(mp[target]!=-1){
             return mp[target];
         }
-        int pick =  totalWays(nums, 0, target - nums[currentIndex],mp);
+        int pick =  totalWays(nums,0, target - nums[currentIndex],mp);
         int notPick = totalWays(nums, currentIndex+1, target,mp);
         mp[target] = pick+notPick;
         return mp[target];
