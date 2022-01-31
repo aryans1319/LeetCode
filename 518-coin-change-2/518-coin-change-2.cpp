@@ -1,39 +1,39 @@
 class Solution {
 public:
-     int findWays(vector<int>&coins , int currentIndex , int amount, unordered_map<string,int>&mp){
-        if(amount==0){
+    vector<vector<int>> dp;
+    int coinChange(vector<int>& coins, int n, int amount)
+    {
+        if(n==0)
+            return 0;
+        if(amount == 0)
+        {
             return 1;
         }
-        
-        if(currentIndex >= coins.size()){
-            return 0;
+        if(dp[n][amount] != -1)
+        {
+            return dp[n][amount];
         }
-        
-        string currentKey = to_string(currentIndex)+ "_" + to_string(amount);
-        if(mp.find(currentKey)!=mp.end()){
-            return mp[currentKey];
+        if(coins[n-1] > amount)
+        {
+            dp[n][amount] = coinChange(coins, n-1, amount);
+            return dp[n][amount];
         }
-        int consider = 0;
-        
-        
-        if(coins[currentIndex] <= amount){
-    
-    consider = findWays(coins, currentIndex, amount- coins[currentIndex],mp);
-        
-        }
-        
-        int notConsider = findWays(coins, currentIndex+1, amount,mp);
-        mp[currentKey] = consider+notConsider;
-        return mp[currentKey];
+        dp[n][amount] = coinChange(coins, n, amount-coins[n-1]) + coinChange(coins, n-1, amount);
+        return dp[n][amount];
     }
     
     int change(int amount, vector<int>& coins) {
-         unordered_map<string,int>mp;
-        int ans =  findWays(coins, 0 ,amount,mp);
-        
-        if(ans==100000){
-            return -1;
+        int n = coins.size();
+        if(amount == 0) {
+            return 1;
         }
-        return ans;
+        if(n==0)
+          return 0;
+        
+        dp.resize(n+2,vector<int>(amount+2,-1));
+        
+        dp[n][amount] = coinChange(coins, n, amount);
+        return dp[n][amount];
+        
     }
 };
