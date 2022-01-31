@@ -2,7 +2,7 @@ class Solution {
 public:
     int dp[101][100001];
     int minNumberOfCoins(vector<int>&coins, int currentIndex, int amount){
-        
+        // vector<vector<int>>dp(0,vector<int>(dp,-1));
         if(amount == 0){
             return 0;
         }
