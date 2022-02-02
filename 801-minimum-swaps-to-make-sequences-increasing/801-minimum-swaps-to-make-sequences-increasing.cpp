@@ -1,13 +1,13 @@
 class Solution {
 public:
-int minOperations(vector<int>&nums1, vector<int>&nums2,int currentIndex,int ifSwap,vector<vector<int>>&mp)
+int minOperations(vector<int>&nums1, vector<int>&nums2,int currentIndex,bool ifSwap,vector<vector<int>>&mp)
 {
     if(currentIndex == nums1.size()) return 0;
     
     int prevElementOfNums1 = nums1[currentIndex-1];
     int prevElementOfNums2 = nums2[currentIndex-1];
     
-    if(ifSwap==1){
+    if(ifSwap==true){
         swap(prevElementOfNums1,prevElementOfNums2);
     }
     
@@ -16,13 +16,13 @@ int minOperations(vector<int>&nums1, vector<int>&nums2,int currentIndex,int ifSw
     }
     
     int ans = INT_MAX;
-    
+    //not swap if already in increasing order
     if(nums1[currentIndex] > prevElementOfNums1 && nums2[currentIndex] > prevElementOfNums2){
-        ans = minOperations(nums1,nums2,currentIndex+1,0,mp);
+        ans = minOperations(nums1,nums2,currentIndex+1,false,mp);
     }
-    
+    //swap if not in increasing order
     if(nums1[currentIndex] > prevElementOfNums2 && nums2[currentIndex] > prevElementOfNums1){
-        int swapped = 1 + minOperations(nums1,nums2,currentIndex+1,1,mp);
+        int swapped = 1 + minOperations(nums1,nums2,currentIndex+1,true,mp);
         ans = min(ans,swapped);
     }
     mp[currentIndex][ifSwap] = ans;
