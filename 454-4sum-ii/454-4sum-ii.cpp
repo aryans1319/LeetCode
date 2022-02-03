@@ -11,7 +11,7 @@ public:
         for(auto c: nums1){
             for(auto d : nums2){
                 int x = c+d;
-                if(mp[-x]){
+                if(mp.find(-x)!=mp.end()){
                     count += mp[-x];
                 }
             }
