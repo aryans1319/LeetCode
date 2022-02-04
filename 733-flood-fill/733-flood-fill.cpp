@@ -1,18 +1,31 @@
 class Solution {
 public:
     vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) {
-        if (image[sr][sc] != newColor)
-            dfs(image, sr, sc, image[sr][sc], newColor);
+        if(image[sr][sc] == newColor){
+            return image;
+        }
+        dfs(image,sr,sc,image[sr][sc],image.size(),image[0].size(),newColor);
         return image;
     }
-
-private:
-    void dfs(vector<vector<int>>& image, int i, int j, int c0, int c1) {
-        if (i < 0 || j < 0 || i >= image.size() || j >= image[0].size() || image[i][j] != c0) return;
-        image[i][j] = c1;
-        dfs(image, i, j - 1, c0, c1);
-        dfs(image, i, j + 1, c0, c1);
-        dfs(image, i - 1, j, c0, c1);
-        dfs(image, i + 1, j, c0, c1);
+    
+    void dfs(vector<vector<int>>& image,int currentRow,int currentCol,int color,int m,int n,int newColor){
+        if(currentRow < 0 || currentRow >=m || currentCol < 0 || currentCol >=n || image[currentRow][currentCol]!=color){
+            return;
+        }
+        image[currentRow][currentCol] = newColor;
+        
+        // up move
+        dfs(image,currentRow - 1,currentCol,color,m,n,newColor);
+        
+        // down move
+        dfs(image,currentRow + 1,currentCol,color,m,n,newColor);
+        
+        //right move
+        dfs(image,currentRow,currentCol+1,color,m,n,newColor);
+        
+        //left move
+        dfs(image,currentRow,currentCol-1,color,m,n,newColor);
+        
+        return;
     }
 };
