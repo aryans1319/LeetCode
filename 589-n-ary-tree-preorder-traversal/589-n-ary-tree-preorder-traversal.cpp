@@ -23,8 +23,8 @@ public:
     void Preorder(Node* root,vector<int>&ans){
         if(root==NULL)return;
         ans.push_back(root->val);
-        for(auto child : root->children){
-            Preorder(child,ans);
+        for(int i=0;i<root->children.size();i++){
+            Preorder(root->children[i],ans);
         }
         return;
     }
