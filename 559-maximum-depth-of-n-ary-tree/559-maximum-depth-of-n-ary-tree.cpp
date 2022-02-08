@@ -25,8 +25,8 @@ public:
             return 0;
         }
         int ans = 0;
-        for(int currentNode = 0;currentNode < root->children.size();currentNode++){
-            int tempAns = maxDepth(root->children[currentNode]);
+        for(auto children : root->children){
+            int tempAns = maxDepth(children);
             ans = max(ans,tempAns);
         }
         return ans+1;
