@@ -11,32 +11,25 @@
  */
 class Solution {
 public:
-    int sumRootToLeaf(TreeNode* rt,int val=0) {
-           if(! rt) return 0;
-        
-        int ans = 0;
-        stack<pair<TreeNode*,int>> st;
-        st.push({rt,0});
-        
-        while(! st.empty()) {
-            auto curp = st.top(); st.pop();
-            TreeNode* cur = curp.first;
-            int cur_val = curp.second;
-            
-            // Equivalent to left shift by 1 and then ORing by cur->val.
-            cur_val = cur_val*2 + cur->val;
-            
-            if(!cur->left && !cur->right)
-                ans += cur_val;
-            
-            if(cur->left) st.push({cur->left, cur_val});
-            if(cur->right) st.push({cur->right, cur_val});
+    void rootToLeaf(TreeNode *root, string currentString, int ans[1]){
+        if(root->left == NULL && root->right == NULL){
+            currentString+=to_string(root->val);
+            ans[0] += stoi(currentString,0,2);
+            return;
         }
-        
-        return ans;
-        
-        
-        
+        string cur = to_string(root->val);
+        if(root->left!=NULL){
+            rootToLeaf(root->left,currentString + cur,ans);
+        }
+        if(root->right!=NULL){
+            rootToLeaf(root->right,currentString+cur,ans);
+        }
+        return;
     }
-    
+    int sumRootToLeaf(TreeNode* root) {
+        int ans[1];
+        ans[0] = 0;
+        rootToLeaf(root,"",ans);
+        return ans[0];
+    }
 };
