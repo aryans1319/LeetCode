@@ -8,7 +8,7 @@ public:
     }
     
     void generateAllSubsets(vector<int>&nums, int currentIndex, vector<int>&currentSubset,vector<vector<int>>&powerSet){
-         
+        // passed by reference if we pass by value it would give us empty subsets 
         if(currentIndex >= nums.size()){
             powerSet.push_back(currentSubset);
             return;
