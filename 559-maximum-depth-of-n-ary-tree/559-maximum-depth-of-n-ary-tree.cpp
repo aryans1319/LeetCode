@@ -24,11 +24,20 @@ public:
         if(root == NULL){
             return 0;
         }
-        int ans = 0;
-        for(auto children : root->children){
-            int tempAns = maxDepth(children);
-            ans = max(ans,tempAns);
+        queue<Node*> q;
+        q.push(root);
+        int level = 0;
+        while(!q.empty()){
+            level+=1;
+            int currentSize = q.size();
+            for(int i=0;i<currentSize;i++){
+            Node *currentNode = q.front();
+            q.pop();    
+            for(auto child : currentNode->children){
+                q.push(child);
+            }
+            }
         }
-        return ans+1;
+       return level;
     }
 };
