@@ -22,14 +22,14 @@ public:
             TreeNode *currentNode = root;
             currentNode = st.top();
             st.pop();
-            ans.push_back(currentNode->val);
-            
             if(currentNode->left!=NULL){
                 st.push(currentNode->left);
             }
-            if(currentNode->right!=NULL){
+              if(currentNode->right!=NULL){
                 st.push(currentNode->right);
             }
+            ans.push_back(currentNode->val);
+
             
         }
         reverse(ans.begin(),ans.end());
