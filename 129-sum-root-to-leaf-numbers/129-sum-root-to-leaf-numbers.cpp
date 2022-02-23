@@ -19,13 +19,13 @@ public:
             auto [root,currentVal] = st.top();
             st.pop();
             currentVal = currentVal * 10 + root->val;
-            if(!root->left && !root->right){
+            if(root->left==NULL && root->right==NULL){
                 sum+=currentVal;
             }
-            if(root->right ){
+            if(root->right!=NULL){
                 st.push({root->right,currentVal});
             }
-            if(root->left ){
+            if(root->left!=NULL){
                 st.push({root->left,currentVal});
             }
              
