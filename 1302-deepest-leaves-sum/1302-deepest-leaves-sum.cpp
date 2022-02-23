@@ -11,7 +11,6 @@
  */
 class Solution {
 public: 
-   
     void deepestSum(TreeNode* root,int currentDepth,int &maxDepth,int &sum){
          if(root == NULL){
             return;
