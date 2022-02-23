@@ -11,23 +11,25 @@
  */
 class Solution {
 public:
-    int getRootToLeafSum(TreeNode *root,int nodeVal){
-        if(root == NULL){
-            return 0;
-        }
-          
-        nodeVal = (nodeVal * 10) + root->val;
-        if(root->left == NULL && root->right == NULL){
-            return nodeVal;
-        }
-      
-        int leftSubtreeSum = getRootToLeafSum(root->left,nodeVal);
-        int rightSubtreeSum = getRootToLeafSum(root->right,nodeVal);
-        
-        return leftSubtreeSum + rightSubtreeSum;
-    }
-    
     int sumNumbers(TreeNode* root) {
-        return getRootToLeafSum(root,0);
+        stack<pair<TreeNode*,int>>st;
+        st.push({root,0});
+        int sum = 0;
+        while(!st.empty()){
+            auto [root,currentVal] = st.top();
+            st.pop();
+            currentVal = currentVal * 10 + root->val;
+            if(!root->left && !root->right){
+                sum+=currentVal;
+            }
+            if(root->right ){
+                st.push({root->right,currentVal});
+            }
+            if(root->left ){
+                st.push({root->left,currentVal});
+            }
+             
+        }
+        return sum;
     }
 };
