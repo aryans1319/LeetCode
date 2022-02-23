@@ -12,21 +12,22 @@
 class Solution {
 public:
     int sumNumbers(TreeNode* root) {
-        stack<pair<TreeNode*,int>>st;
-        st.push({root,0});
+        queue<pair<TreeNode*,int>>q;
+        q.push({root,0});
         int sum = 0;
-        while(!st.empty()){
-            auto [root,currentVal] = st.top();
-            st.pop();
+        while(!q.empty()){
+            auto [root,currentVal] = q.front();
+            q.pop();
             currentVal = currentVal * 10 + root->val;
-            if(root->left==NULL && root->right==NULL){
-                sum+=currentVal;
+            if(root->left!=NULL){
+                q.push({root->left,currentVal});
+                
             }
             if(root->right!=NULL){
-                st.push({root->right,currentVal});
+                q.push({root->right,currentVal});
             }
-            if(root->left!=NULL){
-                st.push({root->left,currentVal});
+            if(root->left==NULL && root->right==NULL){
+                sum+=currentVal;
             }
              
         }
