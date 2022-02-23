@@ -11,28 +11,46 @@
  */
 class Solution {
 public:
-     TreeNode* mergeTrees(TreeNode* t1, TreeNode* t2) {
-        if(!t1 && !t2) return nullptr;
-        if(!t1 || !t2) return t1? t1:t2;
-
-        queue<TreeNode*> q1,q2;
-        q1.push(t1);
-        q2.push(t2);
+    TreeNode* mergeTrees(TreeNode* root1, TreeNode* root2) {
+        if(root1 == NULL) return root2;
+        if(root2 == NULL) return root1;
+        if(root1==NULL && root2 ==NULL) return NULL;
         
-        while(!q1.empty() && !q2.empty()){
-            TreeNode* c1(q1.front());
-            TreeNode* c2(q2.front());
-            q1.pop();
-            q2.pop();
+        queue<pair<TreeNode*,TreeNode*>>q;
+        q.push({root1,root2});
+        
+        while(!q.empty()){
+            auto temp = q.front();
+            q.pop();
             
-            c1->val+=c2->val;
+            /* if the right subtree is not null or the root of the right sub-tree (either left or right isnt null)
+               then we will process further */ 
             
-            if(!c1->left && c2->left) c1->left = c2->left;
-            else if(c1->left && c2->left) { q1.push(c1->left); q2.push(c2->left); }
+            if(temp.second!=NULL){
+                temp.first->val += temp.second->val;
             
-            if(!c1->right && c2->right) c1->right = c2->right;
-            else if(c1->right && c2->right) { q1.push(c1->right); q2.push(c2->right); }
+            
+            /* if the left node of the first subtree is null we can just point the left node of second tree to the
+               left node of the first subtree */ 
+            
+            if(temp.first->left == NULL){
+                temp.first->left = temp.second->left;
+            }
+            else{
+                q.push({temp.first->left,temp.second->left});
+            }
+            
+             /* if the right node of the first subtree is null we can just point the right node of second tree to the
+               right node of the first subtree */ 
+            
+            if(temp.first->right == NULL){
+                temp.first->right = temp.second->right;
+            }
+            else{
+                q.push({temp.first->right,temp.second->right});
+            }
+            }
         }
-        return t1;
+        return root1;
     }
 };
