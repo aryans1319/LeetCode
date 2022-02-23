@@ -17,6 +17,7 @@ public:
         
         if(root == NULL) 
             return ans;
+        // 1st step - push the root nodeinto the queue
         q.push(root);
         
         while(!q.empty()){
