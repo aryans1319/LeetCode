@@ -16,18 +16,30 @@ public:
        if(root->left == NULL && root->right == NULL) return true;
         
        queue<TreeNode*>q;
-        q.push(root);
+       // the first step in every BFS approach push the root node into the queue 
+       q.push(root);
         while(!q.empty()){
+            
             int currentSize = q.size();
+            //iterating for current queue
             for(int i=0;i<currentSize;i++){
+    
                 TreeNode *currentNode = q.front();
                 q.pop();
+        /* made a currentNode pointer pointing to the front element of queue
+       and in each and every step after pushing the children of every node just
+       check if the currentNode value and root value of that particular node are          same if not return false*/
                 if(currentNode->val!=root->val){
                     return false;
                 }
+                /* if left child exist push into the queue*/
+                
                 if(currentNode->left!=NULL){
                     q.push(currentNode->left);
                 }
+                 
+                /* if right child exist push into the queue*/
+                
                  if(currentNode->right!=NULL){
                     q.push(currentNode->right);
                 }
