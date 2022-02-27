@@ -12,26 +12,27 @@
 class Solution {
 public:
     vector<string> binaryTreePaths(TreeNode* root) {
-        vector<string>ans;
-        rootToLeaf(root,"",ans);
-        return ans;
-    }
-    
-    void rootToLeaf(TreeNode *root,string currentPath,vector<string>&ans){
-        if(root == NULL){
-            return;
+        vector<string> paths;
+        queue<pair<TreeNode*, string>> bfs;
+        bfs.push({root, to_string(root->val)});
+        bfs.push({NULL, ""});
+        while (!bfs.empty()) {
+            auto currNode = bfs.front();
+            bfs.pop();
+            if (currNode.first) {
+                auto currPath = currNode.second;
+                if (!currNode.first->left and !currNode.first->right)
+                    paths.push_back(currPath);
+                else {
+                    if (currNode.first->left)
+                        bfs.push({currNode.first->left, currPath + "->" + to_string(currNode.first->left->val)});
+                    if (currNode.first->right)
+                        bfs.push({currNode.first->right, currPath + "->" + to_string(currNode.first->right->val)});
+                }
+            }
+            else if (!bfs.empty())
+                bfs.push({NULL, ""});
         }
-        
-        if(root->left == NULL && root->right == NULL){
-            currentPath += to_string(root->val);
-            ans.push_back(currentPath);
-            return;
-        }
-        
-        currentPath += to_string(root->val) + "->";
-        
-        rootToLeaf(root->left,currentPath,ans);
-        rootToLeaf(root->right,currentPath,ans);
-        return;
+        return paths;
     }
 };
