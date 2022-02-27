@@ -11,25 +11,25 @@
  */
 class Solution {
 public:
-    void findNodes(TreeNode *root,int x,int y,int level[2],int parents[2],int currentLevel ,TreeNode *currParent){
+    void findNodes(TreeNode *root,int x,int y,int level[2],int parents[2],int currentLev,TreeNode *currentParent){
         if(root == NULL) return;
         if(root->val == x){
-            level[0] = currentLevel;
-            parents[0] = currParent->val;
+            level[0] = currentLev;
+            parents[0] = currentParent->val;
         }
         if(root->val == y){
-            level[1] = currentLevel;
-            parents[1] = currParent->val;
+            level[1] = currentLev;
+            parents[1] = currentParent->val;
         }
-        findNodes(root->left,x,y,level,parents,currentLevel+1,root);
-        findNodes(root->right,x,y,level,parents,currentLevel+1,root);
+        findNodes(root->left,x,y,level,parents,currentLev+1,root);
+        findNodes(root->right,x,y,level,parents,currentLev+1,root);
     }
-    
     bool isCousins(TreeNode* root, int x, int y) {
         int level[2] = {-1,-1};
         int parents[2] = {-1,-1};
         
-        findNodes(root,x,y,level,parents,0, new TreeNode(-1));
+        findNodes(root,x,y,level,parents,0,new TreeNode(-1));
+        
         if(level[0] == level[1] && parents[0]!=parents[1])
             return true;
         return false;
