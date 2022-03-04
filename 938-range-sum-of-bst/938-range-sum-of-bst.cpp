@@ -11,18 +11,18 @@
  */
 class Solution {
 public:
-    void sum(TreeNode *root,int low,int high,int &res){
-        if(root == NULL)
-            return;
-        if(root->val >= low && root->val <=high){
-            res+=root->val;
+    void sumRange(TreeNode *root,int low,int high,int &sum){
+        if(root == NULL) return;
+        if(root->val <= high and root->val >= low){
+            sum+=root->val;
         }
-        sum(root->left,low,high,res);
-        sum(root->right,low,high,res);
+        sumRange(root->left,low,high,sum);
+        sumRange(root->right,low,high,sum);
+        return;
     }
     int rangeSumBST(TreeNode* root, int low, int high) {
-        int res = 0;
-        sum(root,low,high,res);
-        return res;
+        int sum=0;
+        sumRange(root,low,high,sum);
+        return sum;
     }
 };
