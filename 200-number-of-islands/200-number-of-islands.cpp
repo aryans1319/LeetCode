@@ -1,16 +1,28 @@
 class Solution {
 public:
-    void countIslands(vector<vector<char>>& grid,int currentRow,int currentCol,int m,int n){
-        if(currentRow < 0 || currentRow>=m || currentCol < 0 || currentCol >=n || grid[currentRow][currentCol] == '0')
-            return;
+    void bfs(vector<vector<char>>& grid,int currentRow,int currentCol,int m,int n){
+        queue<pair<int,int>>q;
+        q.push({currentRow,currentCol});
         
-        grid[currentRow][currentCol] = '0';
-        countIslands(grid,currentRow-1,currentCol,m,n);
-        countIslands(grid,currentRow+1,currentCol,m,n);
-        countIslands(grid,currentRow,currentCol-1,m,n);
-        countIslands(grid,currentRow,currentCol+1,m,n);
-        
-        return;
+        while(!q.empty()){
+            auto it = q.front();
+            q.pop();
+            int row = it.first;
+            int col = it.second;
+            int dx [] = {1,-1,0,0};
+            int dy [] = {0,0,-1,1};
+            
+            for(int currentDir = 0;currentDir<4;currentDir++){
+                int curr_row = row + dx[currentDir];
+                int curr_col = col + dy[currentDir];
+                if(curr_row < 0 || curr_row>=m ||curr_col < 0 || curr_col >=n || grid[curr_row][curr_col] == '0'){
+                    continue;
+                }
+                q.push({curr_row,curr_col});
+                grid[curr_row][curr_col] = '0';
+
+            }
+        }
     }
     
     int numIslands(vector<vector<char>>& grid) {
@@ -22,7 +34,7 @@ public:
             for(int currentCol = 0;currentCol < n;currentCol++){
                 if(grid[currentRow][currentCol] == '1'){
                     ans+=1;
-                    countIslands(grid,currentRow,currentCol,m,n);
+                    bfs(grid,currentRow,currentCol,m,n);
                 }
             }
         }
