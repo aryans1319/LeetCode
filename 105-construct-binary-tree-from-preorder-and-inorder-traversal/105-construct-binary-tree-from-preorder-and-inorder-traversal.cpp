@@ -11,13 +11,22 @@
  */
 class Solution {
 public:
-    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
-        unordered_map<int,int> mp = populateMap(inorder);
-        int preIndex = 0;
-        return constructTree(preorder,mp,0,inorder.size()-1,preIndex);
+    TreeNode *constructTree(vector<int>&preorder,unordered_map<int,int>&mp,int start,int end,int &currentIndex){
+        if(start > end) return NULL;
+        TreeNode *rootNode = new TreeNode(preorder[currentIndex]);
+        
+        int inOindex = mp[preorder[currentIndex]];
+        
+        currentIndex++;
+        
+        rootNode->left = constructTree(preorder,mp,start,inOindex-1,currentIndex);
+        rootNode->right = constructTree(preorder,mp,inOindex+1,end,currentIndex);
+        
+        return rootNode;
     }
     
-    unordered_map<int,int> populateMap(vector<int>&inorder){
+    
+    unordered_map<int,int>inorderIndex(vector<int>&inorder){
         unordered_map<int,int>mp;
         for(int i=0;i<inorder.size();i++){
             mp[inorder[i]] = i;
@@ -25,17 +34,9 @@ public:
         return mp;
     }
     
-    TreeNode* constructTree(vector<int>& preorder,unordered_map<int,int>&mp,int start,int end,int &preIndex){
-        if(start > end) return NULL;
-        TreeNode *root = new TreeNode(preorder[preIndex]);
-        
-        int currentIndex = mp[preorder[preIndex]];
-        preIndex++;
-        
-        root->left = constructTree(preorder,mp,start,currentIndex-1,preIndex);
-        root->right = constructTree(preorder,mp,currentIndex+1,end,preIndex);
-        
-        return root;
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        unordered_map<int,int> mp = inorderIndex(inorder);
+        int currentIndex = 0;
+        return constructTree(preorder,mp,0,inorder.size()-1,currentIndex);
     }
-    
 };
