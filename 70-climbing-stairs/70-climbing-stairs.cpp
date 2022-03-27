@@ -1,22 +1,20 @@
 class Solution {
 public:
-    
-    int totalWays(int targetStair, int currentStair,unordered_map<int,int>&mp){
+    int totalWays(int n,vector<int>&dp){
+        if(n == 0) return 1; 
+        if(n==1) return 1;
         
-        // Base Conditions
-        mp[0]=1;
-        mp[1]=1;
-        // mp[1] = 1;
-        
-        for(int i=2;i<=targetStair;i++){
-            mp[i] = mp[i-1] + mp[i-2];
+        if(dp[n]!=-1){
+            return dp[n];
         }
-        return  mp[targetStair];
-        
+        int oneJump = totalWays(n-1,dp);
+        int twoJump = totalWays(n-2,dp);
+        dp[n] = oneJump + twoJump;
+        return dp[n];
     }
-       
     int climbStairs(int n) {
-        unordered_map<int,int>mp;
-        return totalWays(n,0,mp);
+        vector<int>dp(n+1,-1);
+        int ans = totalWays(n,dp);
+        return ans;
     }
 };
