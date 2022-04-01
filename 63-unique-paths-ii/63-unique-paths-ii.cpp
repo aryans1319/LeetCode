@@ -1,37 +1,24 @@
 class Solution {
 public:
-    int totalPaths(vector<vector<int>>& obstacleGrid, int  i , int j, int m , int n,unordered_map<string,int>&mp){
-        if( i>= m || j>=n ){
-            return 0;
-        }
-        
-        if(obstacleGrid[i][j]==1 ){
-            return 0;
-        }
-         
-        
-        if(i==m-1 && j==n-1){
+      int f(int i,int j,vector<vector<int>>&a,vector<vector<int>>&dp){
+        if(i>=0 && j>=0 && a[i][j] == 1) return 0;  
+        if(i==0 && j==0){
             return 1;
         }
-        
-        string currentKey = to_string(i)+ "_" + to_string(j);
-        
-        if(mp.find(currentKey)!=mp.end()){
-            return mp[currentKey];
+        if(i<0 || j<0){
+            return 0;
         }
-        
-        int moveRight = totalPaths(obstacleGrid, i,j+1,m,n,mp);
-        int moveDown = totalPaths(obstacleGrid,i+1,j,m,n,mp);
-        
-        mp[currentKey] = moveRight+moveDown;
-        
-        return  mp[currentKey];
+        if(dp[i][j]!=-1){
+            return dp[i][j];
+        }
+        int up= f(i-1,j,a,dp);
+        int left = f(i,j-1,a,dp);
+        return dp[i][j] = up+left;
     }
-    
     int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {
-        unordered_map<string,int>mp;
-        int m = obstacleGrid.size();
-        int n = obstacleGrid[0].size();
-        return totalPaths(obstacleGrid,0,0,m,n,mp);
+        int m =  obstacleGrid.size();
+        int n =  obstacleGrid[0].size();
+        vector<vector<int>>dp(m,vector<int>(n,-1));
+        return f(m-1,n-1, obstacleGrid,dp);
     }
 };
