@@ -1,31 +1,21 @@
 class Solution {
 public:
-    int totalPaths(int  i , int j, int m , int n,unordered_map<string,int>&mp){
-        if( i>= m || j>=n ){
-            return 0;
-        }
-        
-        if(i==m-1 && j==n-1){
+    int f(int i,int j,vector<vector<int>>&dp){
+        if(i==0 && j==0){
             return 1;
         }
-        
-        string currentKey = to_string(i)+ "_" + to_string(j);
-        
-        if(mp.find(currentKey)!=mp.end()){
-            return mp[currentKey];
+        if(i<0 || j<0){
+            return 0;
         }
-        
-        int moveRight = totalPaths(i,j+1,m,n,mp);
-        int moveDown = totalPaths(i+1,j,m,n,mp);
-        
-        mp[currentKey] = moveRight+moveDown;
-        
-        return  mp[currentKey];
+        if(dp[i][j]!=-1){
+            return dp[i][j];
+        }
+        int up= f(i-1,j,dp);
+        int left = f(i,j-1,dp);
+        return dp[i][j]=up+left;
     }
-    
-    
     int uniquePaths(int m, int n) {
-        unordered_map<string,int>mp;
-      return totalPaths(0,0,m,n,mp);
+        vector<vector<int>>dp(m,vector<int>(n,-1));
+        return f(m-1,n-1,dp);
     }
 };
