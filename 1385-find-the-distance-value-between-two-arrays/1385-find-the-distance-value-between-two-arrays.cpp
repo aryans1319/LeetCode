@@ -8,7 +8,7 @@ public:
                 if(abs(arr1[i]-arr2[j]) <= d)
                     flag = true;
             }
-            if(!flag)c++;
+            if(flag==false)c++;
         }
         return c;
     }
