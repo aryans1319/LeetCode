@@ -1,29 +1,20 @@
 class Solution {
 public:
-    int minSum(vector<vector<int>>&triangle, int cI, int cJ, vector<vector<int>>&v){
+    int f(int i,int j,vector<vector<int>>&a,int n,vector<vector<int>>&dp){
+        if(i == n-1) return a[n-1][j];
         
-        if(cI == triangle.size() || cJ == triangle.size()){
-            return 0;
+        if(dp[i][j]!=-1){
+            return dp[i][j];
         }
         
-        if(v[cI][cJ]!=-1){
-            return v[cI][cJ];
-        }
+        int down = a[i][j] + f(i+1,j,a,n,dp);
+        int diag = a[i][j] + f(i+1,j+1,a,n,dp);
         
-        int moveRow = minSum(triangle, cI+1,cJ,v);
-        int moveBoth = minSum(triangle, cI+1, cJ+1,v);
-        
-        v[cI][cJ] = min(moveRow , moveBoth) + triangle[cI][cJ];
-        
-        return   v[cI][cJ];
-        
+        return dp[i][j] = min(down,diag);
     }
     int minimumTotal(vector<vector<int>>& triangle) {
-        int i = triangle.size();
-        int j = i;
-            
-        vector<vector<int>> v(i, vector<int> (j,-1));
-        
-        return minSum(triangle,0,0,v);   
+        int n = triangle.size();  
+        vector<vector<int>>dp(n,vector<int>(n,-1));
+        return f(0,0,triangle,n,dp);
     }
 };
