@@ -19,18 +19,8 @@ class Solution{
         
         int left = 0;
         for(int right = k;right <n;right++){
-            if(mp.find(arr[right])!=mp.end()){
-                mp[arr[right]]+=1;
-            }
-            else{
-                mp[arr[right]] = 1;
-            }
-            if(mp.find(arr[left])!=mp.end()){
-            mp[arr[left]]-=1;
-            }
-            else{
-                mp[arr[left]]=1;
-            }
+            mp[arr[right]]++;
+            mp[arr[left]]--;
             if(mp[arr[left]] == 0){
                 mp.erase(arr[left]);
             }
