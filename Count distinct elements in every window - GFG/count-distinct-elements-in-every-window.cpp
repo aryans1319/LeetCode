@@ -25,7 +25,12 @@ class Solution{
             else{
                 mp[arr[right]] = 1;
             }
-            mp[arr[left]]--;
+            if(mp.find(arr[left])!=mp.end()){
+            mp[arr[left]]-=1;
+            }
+            else{
+                mp[arr[left]]=1;
+            }
             if(mp[arr[left]] == 0){
                 mp.erase(arr[left]);
             }
