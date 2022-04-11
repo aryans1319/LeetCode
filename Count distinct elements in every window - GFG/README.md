@@ -1,5 +1,5 @@
 # Count distinct elements in every window
-##  Easy 
+## Easy 
 <div class="problem-statement">
                 <p></p><p><span style="font-size:18px">Given an array of integers and a number K. Find the count of distinct elements in every window of size K in the array.</span></p>
 
