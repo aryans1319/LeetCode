@@ -12,26 +12,30 @@
 class Solution {
 public:
     TreeNode* searchBST(TreeNode* root, int val) {
-        if(root == NULL) return NULL;
-        if(root->val == val){
-            return root;
-        }
-        else if(root->val < val){
-            return searchBST(root->right,val);
-        }
-        else {
-            return searchBST(root->left,val);
-        }
-       
-        // TreeNode *currentNode = root;
-        // while(currentNode != NULL){
-        //     if(currentNode->val == val)
-        //         return currentNode;
-        //     else if (currentNode->val < val)
-        //         currentNode = currentNode->right;
-        //     else
-        //         currentNode = currentNode->left;
+        
+        // o(n)
+        // if(root == NULL) return NULL;
+        // if(root->val == val){
+        //     return root;
         // }
-        // return currentNode;
+        // else if(root->val < val){
+        //     return searchBST(root->right,val);
+        // }
+        // else {
+        //     return searchBST(root->left,val);
+        // }
+       
+        
+        // without recursion
+        TreeNode *currentNode = root;
+        while(currentNode != NULL){
+            if(currentNode->val == val)
+                return currentNode;
+            else if (currentNode->val < val)
+                currentNode = currentNode->right;
+            else
+                currentNode = currentNode->left;
+        }
+        return currentNode;
     }
 };
