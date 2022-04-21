@@ -3,8 +3,8 @@ public:
     vector<vector<int>> flipAndInvertImage(vector<vector<int>>& image) {
         int n = image.size();
         for(int i = 0; i < n; i++){
-              int start = 0;
-              int end = n-1;
+            int start = 0;
+            int end = n-1;
             while(start < end){
                 int temp = image[i][start];
                 image[i][start] = image[i][end];
@@ -13,14 +13,6 @@ public:
                 end--;
             }
         }
-        
-        for(int i = 0;i < n;i++){
-            for(int j = 0; j < n;j++){
-                cout<<image[i][j]<<" ";
-            }
-            cout<<endl;
-        }
-       
         for(int i = 0;i < n;i++){
             for(int j = 0; j < image[i].size();j++){
                 if(image[i][j] == 0){
