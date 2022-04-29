@@ -8,21 +8,15 @@ public:
     int maximumSumSubarray(int K, vector<int> &Arr , int N){
         // code here 
         int maxSum = INT_MIN;
-        int start = 0;
-        int end = 0;
         int sum = 0;
-        while(end < Arr.size()){
+        int start = 0;
+        for(int end = 0; end < N ; end++){
             sum+=Arr[end];
-            
-            if(end - start + 1 < K){
-                end++;
-            }
-            else if(end - start + 1 == K){
-                maxSum = max(sum,maxSum);
+            if(end >= K){
                 sum -= Arr[start];
                 start++;
-                end++;
             }
+            maxSum = max(maxSum,sum);
         }
         return maxSum;
     }
