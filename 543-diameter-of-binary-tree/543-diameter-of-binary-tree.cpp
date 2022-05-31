@@ -11,23 +11,20 @@
  */
 class Solution {
 public:
-    int height(TreeNode *root){
+    int height(TreeNode *root, int &diameter){
         if(root == NULL) return 0;
-        int lh = height(root->left);
-        int rh = height(root->right);
+        int lh = height(root->left,diameter);
+        int rh = height(root->right,diameter);
+        diameter = max(diameter, lh+rh);
         return 1 + max(lh,rh);
     }
     int diameterOfBinaryTree(TreeNode* root) {
-        if(root == NULL) return 0;
-        int maxi = 0;
-        int leftHeight = height(root->left);
-        int rightHeight = height(root->right);
-        
-        int totalHeight = leftHeight + rightHeight;
-        // maxi = max(maxi,rightHeight+leftHeight);
-        int leftDiameter = diameterOfBinaryTree(root->left);
-        int rightDiameter = diameterOfBinaryTree(root->right);
-        return max(totalHeight , max(leftDiameter, rightDiameter));
-        
+        int diameter = 0;
+        height(root,diameter);
+        return diameter;
     }
 };
+
+/* Time Complexity  : O(N)
+   Space Complexity : O(N) --> Auxillary stack space in case of skew-trees  
+*/   
