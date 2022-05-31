@@ -11,27 +11,11 @@
  */
 class Solution {
 public:
-    /*
-        We can follow a post-order traversal approach here to solve the 
-        problem, in this we just need to swap the link for the left and right
-        pointers and thus invert our binary tree
-        
-    */
-    void swap(TreeNode *root){
-        if(root == NULL) return;
-        
-        swap(root->left);
-        swap(root->right);
-        
-        /* Swap Function */
-        
-        TreeNode *temp = root->left;
-        root->left = root->right;
-        root->right = temp;
-    }
-    
     TreeNode* invertTree(TreeNode* root) {
-        swap(root);
+        if(!root) return NULL;
+        swap(root->left,root->right);
+        invertTree(root->left);
+        invertTree(root->right);
         return root;
     }
 };
