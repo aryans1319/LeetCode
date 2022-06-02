@@ -11,19 +11,36 @@
  */
 class Solution {
 public:
-    bool isSymmetric(TreeNode* root) {
-        return symTrees(root->left,root->right);
-    }
+    /* 
+        Symmetric binary trees means it forms a mirror image 
+        of itself around the centre & if mirror image is imposed
+        on the other then it's a symmetric tree!
+        
+        Now from the property of mirror image if anything appears 
+        left then it's seems to be in right of mirror and vice-versa
+        
+        if we perform a inorder traversal on the left subtree (root, left ,             right) then on the right subtree it would look as (root,right,left)
+        
+        And if we compare the node values while performing the traversal,
+        they would be same if the trees are symmetric otherwise they aren't
+        symmetric
     
-    bool symTrees(TreeNode* t1, TreeNode *t2){
-        if(t1 == NULL && t2 == NULL){
+    */
+    bool isSymmetricHelp(TreeNode *left, TreeNode *right){
+        if(left == NULL && right == NULL){
             return true;
         }
-        
-        if(t1 == NULL || t2 == NULL || t1->val!=t2->val){
+        else if(left == NULL || right == NULL){
             return false;
         }
-        
-        return symTrees(t1->left,t2->right) && symTrees(t1->right,t2->left);
+        else if(left->val != right->val){
+            return false;
+        }
+        return isSymmetricHelp(left->left, right->right) &&                             isSymmetricHelp(left->right, right->left);
+    }
+    
+    bool isSymmetric(TreeNode* root) {
+        if(root == NULL) return true;
+        return isSymmetricHelp(root->left, root->right);
     }
 };
