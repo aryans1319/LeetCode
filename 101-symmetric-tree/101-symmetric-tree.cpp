@@ -19,7 +19,7 @@ public:
         Now from the property of mirror image if anything appears 
         left then it's seems to be in right of mirror and vice-versa
         
-        if we perform a inorder traversal on the left subtree (root, left ,             right) then on the right subtree it would look as (root,right,left)
+        if we perform a inorder traversal on the left subtree (root, left , right) then on the right subtree it would look as (root,right,left)
         
         And if we compare the node values while performing the traversal,
         they would be same if the trees are symmetric otherwise they aren't
@@ -36,7 +36,7 @@ public:
         else if(left->val != right->val){
             return false;
         }
-        return isSymmetricHelp(left->left, right->right) &&                             isSymmetricHelp(left->right, right->left);
+        return isSymmetricHelp(left->left, right->right) && isSymmetricHelp(left->right, right->left);
     }
     
     bool isSymmetric(TreeNode* root) {
