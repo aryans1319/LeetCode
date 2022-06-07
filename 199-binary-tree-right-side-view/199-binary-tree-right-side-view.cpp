@@ -11,25 +11,18 @@
  */
 class Solution {
 public:
-    void rightView(TreeNode *root,int level,set<int>&hashSet,vector<int>&ans){
-    if(root == NULL){
-        return;
-    }
-    
-    if(hashSet.find(level) == hashSet.end()){
-        hashSet.insert(level);
-        ans.push_back(root->val);
-    }
-    rightView(root->right,level+1,hashSet,ans);
-    rightView(root->left,level+1,hashSet,ans);
-    return;
-    
-}
-    
+  void getRightView(TreeNode *node,vector<int>&ans,int level){
+    if(node == NULL) return;
+    if(level == ans.size()) {
+        ans.push_back(node->val);
+    } 
+    getRightView(node->right,ans,level+1);
+    getRightView(node->left,ans,level+1);
+} 
     vector<int> rightSideView(TreeNode* root) {
         vector<int>ans;
-        set<int>hashSet;
-        rightView(root,0,hashSet,ans);
+        int level = 0;
+        getRightView(root,ans,level);
         return ans;
     }
 };
