@@ -24,7 +24,7 @@ public:
             int mini = q.front().second;
             int first,last;
             for(int i = 0 ; i < size; i++){
-                long long currentMin = q.front().second - mini;
+                unsigned int currentMin = q.front().second - mini;
                 TreeNode *node = q.front().first;
                 q.pop();
                 
