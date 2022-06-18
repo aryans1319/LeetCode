@@ -1,26 +1,32 @@
 class Solution {
 public:
-    int getMax(vector<int>&sums, int currentIndex,vector<int>&mp){
-        if(currentIndex >= sums.size()){
-            return 0;
-        }
-        
-        if(mp[currentIndex]!=-1){
-            return mp[currentIndex];
-        }
-        
-        int earn = getMax(sums,currentIndex+2,mp) + sums[currentIndex];
-        int del = getMax(sums, currentIndex + 1,mp);
-        mp[currentIndex] = max(earn,del);
-        return mp[currentIndex];
-    }
     int deleteAndEarn(vector<int>& nums) {
-        vector<int>mp(10005,-1);
-        int maxi = *max_element(nums.begin(),nums.end());
-        vector<int> sum(maxi+1,0);
-        for(int i=0; i<nums.size();i++){
-            sum[nums[i]] += nums[i];
-        }
-        return getMax(sum,0,mp);
+            sort(nums.begin(),nums.end());
+            vector<int>freq(10001,0);
+            int maxVal=INT_MIN;
+                for(int num : nums)
+                {
+                        freq[num]++;
+                        maxVal=max(maxVal,num);
+                }
+            unordered_map<int,int>mp;
+            
+            return solve(freq,0,mp);
     }
+        int solve(vector<int>&freq,int cur,unordered_map<int,int>&mp)
+        {
+                if(cur>=freq.size())
+                    return 0;
+                
+                int key = cur;
+                if(mp.find(key)!=mp.end())
+                    return mp[key];
+                
+                int dele = freq[cur]*cur + solve(freq,cur+2,mp);
+                int notdel = solve(freq,cur+1,mp);
+                
+                mp[key]=max(dele,notdel);
+        
+                return mp[key];
+        }
 };
