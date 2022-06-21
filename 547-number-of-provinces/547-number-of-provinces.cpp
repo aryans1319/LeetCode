@@ -1,28 +1,28 @@
 class Solution {
 public:
-  void dfs(vector<vector<int>>& M, vector<bool>& vis, int i)
-{
-	vis[i]=true;
-	for(int j=0;j<M.size();j++)
-		if(M[i][j]==1 && !vis[j])
-			dfs(M,vis,j);
-}
-    int findCircleNum(vector<vector<int>>& M) {
-            int n=M.size(),ans=0;
-	if(n==0) return 0;
-
-	vector<bool>vis(n,false);
-
-	for(int i=0;i<n;i++)
-	{
-		if(!vis[i])
-		{
-			ans++;
-			dfs(M,vis,i);
-		}
-	}
-	return ans;
-
+    void dfs(vector<vector<int>>& graph, int currentCity, int n,vector<bool>&vis){
+        if(vis[currentCity]){
+            return;
+        }
+        vis[currentCity] = true;
+        for(int i=0 ;i<graph.size();i++){
+            if(graph[currentCity][i] == 1 && !vis[i]){
+                dfs(graph,i,n,vis);
+            }
+        }
+    }
+    
+    int findCircleNum(vector<vector<int>>& graph) {
+        int n = graph.size();
+        int ans = 0;
+        
+        vector<bool>vis(n,false);
+        for(int currentCity = 0; currentCity < n; currentCity++){
+            if(vis[currentCity] == false){
+                dfs(graph, currentCity, n,vis);
+                ans+=1;
+            }
+        }
+        return ans;
     }
 };
-
