@@ -10,22 +10,23 @@
  */
 class Solution {
 public:
-       ListNode* removeNthFromEnd(ListNode* head, int n) {
-        ListNode *start=new ListNode();
-        start->next=head;
-        ListNode *slow=start;
-        ListNode *fast=start;
-        
-        for(int i=1;i<=n;i++){
-            fast=fast->next;
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode *node = head;
+        int size = 0;
+        while(node != NULL){
+            size++;
+            node = node->next;
         }
-        while(fast->next!=NULL){
-            fast=fast->next;
-            slow=slow->next;
+        if(size == n) return head->next;
+        // cout<< *(node) <<" ";
+        int it = size - n;
+        // cout<<it;
+        ListNode *dummy = head;
+        ListNode *dummyHead = dummy;
+        for(int i=1 ; i<it;i++){
+            dummy=dummy->next;
         }
-        slow->next=slow->next->next;
-        return start->next;
-        
-    
+        dummy->next = dummy->next->next;
+        return dummyHead;
     }
 };
