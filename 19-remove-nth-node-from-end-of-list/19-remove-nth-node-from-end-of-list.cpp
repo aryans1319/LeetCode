@@ -18,9 +18,8 @@ public:
             node = node->next;
         }
         if(size == n) return head->next;
-        // cout<< *(node) <<" ";
         int it = size - n;
-        // cout<<it;
+  
         ListNode *dummy = head;
         ListNode *dummyHead = dummy;
         for(int i=1 ; i<it;i++){
