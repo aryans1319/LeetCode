@@ -1,5 +1,5 @@
 # Boolean Matrix
-## Medium 
+##  Medium 
 <div class="problem-statement">
                 <p></p><p><span style="font-size:18px">Given a boolean matrix of size RxC where each cell contains either&nbsp;0 or 1, modify it such that if a matrix cell matrix[i][j] is 1 then all the cells in its i<sup>th</sup> row and j<sup>th</sup> column will become 1.</span></p>
 
