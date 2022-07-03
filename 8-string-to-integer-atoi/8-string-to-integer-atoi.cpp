@@ -30,6 +30,6 @@ public:
             
             i++;
         }
-        return (int) (sign * res);
+        return (sign * res);
     }
 };
