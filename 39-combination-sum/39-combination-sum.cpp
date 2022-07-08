@@ -1,31 +1,29 @@
 class Solution {
 public:
-    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-        vector<vector<int>>answer;
-        vector<int>currentAns;
-        generateTotalWays(candidates,0,target,currentAns,answer);
-        return answer;
+    void generateCombinations(vector<int>&candidates, int currentIndex, int target, vector<int>&currentCombo,vector<vector<int>>&ans){
+        if(target == 0){
+            ans.push_back(currentCombo);
+            return;
+        }
+        
+        if(currentIndex >= candidates.size()){
+            return;
+        }
+        
+        int currentVal = candidates[currentIndex];
+        if(target >= currentVal){
+            currentCombo.push_back(currentVal);
+            generateCombinations(candidates, currentIndex, target - currentVal, currentCombo, ans);
+            currentCombo.pop_back();
+        }
+        generateCombinations(candidates, currentIndex + 1, target, currentCombo, ans);
+        return;
     }
     
-    void generateTotalWays(vector<int>&nums, int currentIndex, 
-    int target,vector<int>&currentAns,vector<vector<int>>&answer){
-        if(target == 0){
-            answer.push_back(currentAns);
-            return;
-        }
-        
-        if(currentIndex >= nums.size()){
-            return;
-        }
-        
-        int currentVal = nums[currentIndex];
-        
-        if(target >= currentVal){
-        currentAns.push_back(currentVal);
-        generateTotalWays(nums,currentIndex,target-currentVal,currentAns,answer);
-        currentAns.pop_back();
-        }
-        generateTotalWays(nums,currentIndex+1,target,currentAns,answer);
-        return;
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<vector<int>>ans;
+        vector<int>currentCombo;
+        generateCombinations(candidates, 0, target,currentCombo,ans);
+        return ans;
     }
 };
