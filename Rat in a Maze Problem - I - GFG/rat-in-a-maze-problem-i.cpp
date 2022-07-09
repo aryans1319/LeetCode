@@ -10,44 +10,38 @@ using namespace std;
 
 class Solution{
     public:
-    vector<string> findPath(vector<vector<int>> &grid, int n) {
-        // Your code goes here
-        vector<string>ans;
-        generateAllPaths(grid,0,0,n,"",ans);
-        sort(ans.begin(),ans.end());
-        return ans;
+    void findValidPath(vector<vector<int>> &grid, int row, int col, int n, string currentPath, vector<string>&ans){
+        if(row < 0 || row >= n || col < 0 || col >= n || grid[row][col] <= 0) {
+            return;
+        }
+        
+        if(row == n-1 && col == n-1){
+            ans.push_back(currentPath);
+        }
+        
+        grid[row][col] = -1;
+        
+        // down
+        findValidPath(grid,row+1,col,n,currentPath + "D",ans);
+        
+        //left
+        findValidPath(grid,row,col-1,n,currentPath + "L",ans);
+        
+        //right
+        findValidPath(grid,row,col+1,n,currentPath + "R",ans);
+        
+        //up
+        findValidPath(grid,row-1,col,n,currentPath + "U",ans);
+        
+        grid[row][col] = 1;
+        return;
     }
     
-    void generateAllPaths(vector<vector<int>>&grid,int currentRow,
-    int currentCol,int n,string current, vector<string>&ans){
-        
-        if(currentRow < 0 || currentRow >= n || currentCol>=n || currentCol<0
-        || grid[currentRow][currentCol]==0){
-            return;
-        }
-        
-        if(currentRow == n-1 && currentCol == n-1)
-        {
-            ans.push_back(current);
-            return;
-        }
-        
-        grid[currentRow][currentCol] = 0;
-        
-        // moving up
-        generateAllPaths(grid, currentRow-1, currentCol,n,current+"U",ans);
-        
-        //right move
-        generateAllPaths(grid, currentRow, currentCol+1,n,current+"R",ans);
-        
-        //down move
-        generateAllPaths(grid, currentRow+1, currentCol,n,current+"D",ans);
-        
-        //left move
-        generateAllPaths(grid, currentRow, currentCol-1,n,current+"L",ans);
-        
-        grid[currentRow][currentCol] = 1;
-        return;
+    
+    vector<string> findPath(vector<vector<int>> &grid, int n) {
+       vector<string>ans;
+       findValidPath(grid,0,0,n,"",ans);
+       return ans;
     }
 };
 
@@ -70,6 +64,7 @@ int main() {
         }
         Solution obj;
         vector<string> result = obj.findPath(m, n);
+        sort(result.begin(), result.end());
         if (result.size() == 0)
             cout << -1;
         else
