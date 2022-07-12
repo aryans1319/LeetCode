@@ -1,17 +1,32 @@
 class Solution {
 public:
+    
+    
     string reverseWords(string s) {
-        vector<string>words;
-        stringstream ss(s);
-        string temp;
-        while( ss >> temp){
-            words.push_back(temp);
+        reverse(s.begin(),s.end());
+        
+        int i = 0;
+        int j = 0;
+        
+        int n = s.size();
+        int lastIndex = 0;
+        
+        while( j < n){
+        
+        while( j < n && s[j] == ' ') j++;
+        
+        int startIndex = i;
+        
+        while(j < n && s[j] != ' '){
+            s[i++] = s[j++];
+            lastIndex = i;
         }
-        string ans="";
-        for(int i=words.size()-1;i>=0;i--){
-            if( i!= words.size()-1) ans+=" ";
-            ans+=words[i];
+        
+        reverse(s.begin() + startIndex, s.begin() + lastIndex);
+        s[i++] = ' ';
+        
         }
-        return ans;
+        s.resize(lastIndex);
+        return s;
     }
 };
