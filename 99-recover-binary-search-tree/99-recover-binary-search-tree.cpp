@@ -1,33 +1,50 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
 class Solution {
 public:
-    void inor(TreeNode*&root,vector<TreeNode*>&v){
-        if(root==nullptr)return;
-        inor(root->left,v);
-        v.push_back(root);
-        inor(root->right,v);
-    }
-    void recoverTree(TreeNode* root) {
-        vector<TreeNode*>inorder;
-        inor(root,inorder);
-        int first=-1,second=-1,third=-1;
-        for(int i=0;i<inorder.size()-1;i++){
-            if(inorder[i]->val>inorder[i+1]->val){
-                if(first==-1&&second==-1){
-                first=i;
-                second=i+1;
-                }
-                else{third=i+1;}
-            }
+    TreeNode *first, *prev, *middle, *last;
+
+    void inorder(TreeNode *root){
+    
+    if(root == NULL) return;
+    
+    inorder(root->left);
+    
+    if(prev != NULL && (root->val < prev->val)){
+        
+        if(first == NULL){
+            first = prev;
+            middle = root;
         }
-            if(third==-1){
-                int temp=inorder[first]->val;
-                inorder[first]->val=inorder[second]->val;
-                inorder[second]->val=temp;
-            }
-            else{
-                 int temp=inorder[first]->val;
-                inorder[first]->val=inorder[third]->val;
-                inorder[third]->val=temp;
-                }
-             }
+        else{
+            last = root;
+        }
+        
+    }
+    prev = root;
+    inorder(root->right);
+}
+    void recoverTree(TreeNode* root) {
+    first = middle = last = NULL;
+    prev = new TreeNode(INT_MIN);
+
+    inorder(root);
+    if(first && last) {
+        swap(first->val, last->val); 
+      
+    }
+    else if(first && middle){
+        swap(first->val, middle->val);
+    }
+    
+    }
 };
