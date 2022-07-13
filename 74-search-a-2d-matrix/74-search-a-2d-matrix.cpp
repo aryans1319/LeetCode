@@ -1,8 +1,14 @@
 class Solution {
 public:
     bool searchMatrix(vector<vector<int>>& matrix, int target) {
-        
         //optimal Approach
+        
+        /*
+            Start from top-right if matrix[i][j] > target move left
+            else move bottom
+            if out of bound that means element not present
+            
+        */
         int n = matrix.size();
         int m = matrix[0].size();
         
