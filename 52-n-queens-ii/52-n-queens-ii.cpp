@@ -1,19 +1,15 @@
 class Solution {
 public:
     int totalNQueens(int n) {
-        vector<vector<string>>ans;
+        int ans[1] = {0};
         vector<vector<char>>board(n,vector<char>(n,'.'));
         nQueens(board,0,n,ans);
-        return ans.size();
+        return ans[0];
     }
      private:
-        void nQueens(vector<vector<char>>&board, int currentRow,int n,vector<vector<string>>&ans){
-            /* 
-            creating the base condition, whenever we reach n or the end
-            col we push the stored value/path of queen into the ans
-            */
+        void nQueens(vector<vector<char>>&board, int currentRow,int n,int ans[]){
             if(currentRow == n){
-                ans.push_back(constructAns(board,n));
+                ans[0] +=1;
                 return;
             }
             for(int currentCol = 0; currentCol < n; currentCol++){
@@ -30,18 +26,7 @@ public:
             
         }
         }
-    private:
-        vector<string> constructAns(vector<vector<char>>&board, int n){
-            vector<string>current;
-            for(int i = 0; i<n;i++){
-                string currentString = "";
-                for(int j = 0; j < n; j++){
-                    currentString += board[i][j];
-                }
-                current.push_back(currentString);
-            }
-            return current;
-        }
+    
     private:
     bool isValid(vector<vector<char>>&board, int currentRow, int currentCol,int n){
         return isRowValid(board,currentRow,n) && isColValid(board,currentCol,n) &&
