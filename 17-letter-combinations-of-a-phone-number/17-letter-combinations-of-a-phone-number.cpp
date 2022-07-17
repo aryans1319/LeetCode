@@ -1,30 +1,29 @@
 class Solution {
+public:
     private:
-    void allPossibleMappings(string digits,string currentAns,int currentIndex,vector<string>&ans,string mapping[]){
-        if(currentIndex >= digits.length()){
-            ans.push_back(currentAns);
+        string KEY[10] = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv","wxyz"};
+    public:
+    vector<string> letterCombinations(string digits) {
+        vector<string>ans;
+        if(digits.size() == 0) return ans;
+        generateCombinations(digits, 0, "", ans);
+        return ans;
+    }
+    
+    void generateCombinations(string digits, int currentIndex, string currentString, vector<string>&ans){
+        
+        if(currentIndex >= digits.size()){
+            ans.push_back(currentString);
             return;
         }
         
-        int number = digits[currentIndex] -'0';
-        string value = mapping[number];
+        char currentChar = digits[currentIndex];
+        string letters = KEY[currentChar - '0'];
         
-        for(int i=0;i<value.length();i++){
-            currentAns.push_back(value[i]);
-            allPossibleMappings(digits,currentAns,currentIndex+1,ans,mapping);
-            currentAns.pop_back();
+        for(int i = 0; i< letters.size();i++){
+            generateCombinations(digits, currentIndex + 1, currentString + letters[i], ans);
         }
-    }   
-    public:
-    vector<string> letterCombinations(string digits) {
-        vector<string> ans;
-        string currentAns;
-        if(digits.length()==0){
-            return ans;
-        }
-        int currentIndex = 0;
-        string keypad[10] = {"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
-        allPossibleMappings(digits,currentAns,currentIndex,ans,keypad);
-        return ans;
+        return; 
     }
+    
 };
