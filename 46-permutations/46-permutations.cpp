@@ -8,7 +8,7 @@ public:
             return;
         }
         for(int i = 0; i < nums.size();i++){
-            if(visited[i] == false){
+            if(!visited[i]){
                 visited[i] = true;
                 path.push_back(nums[i]);
                 backtrack(nums,path,visited);
