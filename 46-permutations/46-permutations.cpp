@@ -7,11 +7,11 @@ public:
         }
         for(int i = 0; i < nums.size();i++){
             if(!visited[i]){
-                visited[i] = true;
                 path.push_back(nums[i]);
+                visited[i] = true;
                 backtrack(nums,path,visited,ans);
-                path.pop_back();
                 visited[i] = false;
+                path.pop_back();
             }
         }
     }
