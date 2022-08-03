@@ -2,26 +2,19 @@ class Solution {
 public:
     int peakIndexInMountainArray(vector<int>& arr) {
          int n = arr.size();
-        if(arr.size() == 1) return 0;
-        if(arr[0] > arr[1]) return 0;
-        if(arr[n-1] > arr[n-2]) return n-1;
-        
         int start = 0;
         int end = arr.size() - 1;
         
-        while(start <= end){
+        while(start < end){
             int mid = start + (end-start)/2;
             
-            if(arr[mid+1] < arr[mid] && arr[mid] > arr[mid-1]){
-                return mid;
-            }
             /*
             We are at the decreasing part of the array
             ans would lies in the left part of the array but
             mid can also be a possible value so we reduced
             our search space start to mid
             */
-            else if(arr[mid] > arr[mid+1]){
+            if(arr[mid] > arr[mid+1]){
                 end = mid;
             }
              /*
