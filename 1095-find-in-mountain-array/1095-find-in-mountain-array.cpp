@@ -12,16 +12,18 @@ class Solution {
 public:
     int findPeakElement(MountainArray &arr) {
         int n = arr.length();
-        // if(arr.length() == 1) return 0;
-        // if(arr.get(0) > arr.get(1)) return 0;
-        // if(arr.get(n-1) > arr.get(n-2)) return n-1;
+        if(arr.length() == 1) return 0;
+        if(arr.get(0) > arr.get(1)) return 0;
+        if(arr.get(n-1) > arr.get(n-2)) return n-1;
         
         int start = 0;
         int end = arr.length() - 1;
         
-        while(start < end){
+        while(start <= end){
             int mid = start + (end-start)/2;
-
+            if(arr.get(mid+1) < arr.get(mid) && arr.get(mid) > arr.get(mid-1)){
+                return mid;
+            }
             /*
             We are at the decreasing part of the array
             ans would lies in the left part of the array but
