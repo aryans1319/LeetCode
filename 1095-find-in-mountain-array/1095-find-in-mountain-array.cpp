@@ -14,7 +14,7 @@ public:
         int n = arr.length();
         // if(arr.length() == 1) return 0;
         // if(arr.get(0) > arr.get(1)) return 0;
-        if(arr.get(n-1) > arr.get(n-2)) return n-1;
+        // if(arr.get(n-1) > arr.get(n-2)) return n-1;
         
         int start = 0;
         int end = arr.length() - 1;
