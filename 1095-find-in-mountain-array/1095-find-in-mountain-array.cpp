@@ -44,7 +44,7 @@ public:
                 start = mid + 1;
             }
         }
-        return start;
+        return -1;
     }
     int OrderAgnosticBinarySearch(MountainArray arr, int target, int start, int end){
 
