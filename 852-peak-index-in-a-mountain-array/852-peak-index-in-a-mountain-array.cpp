@@ -10,9 +10,22 @@ public:
             if(arr[mid+1] < arr[mid] && arr[mid] > arr[mid-1]){
                 return mid;
             }
+            /*
+            We are at the decreasing part of the array
+            ans would lies in the left part of the array but
+            mid can also be a possible value so we reduced
+            our search space start to mid
+            */
             else if(arr[mid] > arr[mid+1]){
                 end = mid;
             }
+             /*
+            We are at the increasing part of the array
+            ans would lies in the right part of the array
+            update start to mid+1, since we compare 
+            arr[mid+1] > arr[mid] so obviously mid cant be the max
+            element so search space reduced to mid+1 to end
+            */
             else{
                 start = mid + 1;
             }
