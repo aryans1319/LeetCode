@@ -4,9 +4,9 @@ public:
         int n = arr.size();
         int start = 0;
         int end = arr.size() - 1;
-        if(arr.size() == 1) return 0;
-        if(arr[0] > arr[1]) return 0;
-        if(arr[n-1] > arr[n-2]) return n-1;
+        // if(arr.size() == 1) return 0;
+        // if(arr[0] > arr[1]) return 0;
+        // if(arr[n-1] > arr[n-2]) return n-1;
         
         while(start <= end){
             int mid = start + (end-start)/2;
