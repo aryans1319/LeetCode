@@ -11,6 +11,12 @@
  */
 class Solution {
 public:
+    /*
+    The approach here to track the traversal from left to right and right to left
+    is to keep a bool value, set it true(0) L->R and false(1) R->L
+    if true insert at current index i else insert from the end
+    Rest everything remains same!
+    */
     vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
         vector<vector<int>>ans;
         if(root == NULL) return ans;
