@@ -13,20 +13,17 @@ class Solution {
 public:
     int height(TreeNode* root){
         if(root == NULL) return 0;
-        int left = 1 + height(root->left);
-        int right = 1 + height(root->right);
-        return max(left,right);
+        int left = height(root->left);
+        if(left == -1) return -1;
+        int right = height(root->right);
+        if(right == -1) return -1;
+        if(abs(left-right) > 1) return -1;
+        return 1 + max(left,right);
     }
     bool isBalanced(TreeNode* root) {
-        if(root == NULL) return true;
-        int left = height(root->left);
-        int right = height(root->right);
-        if(abs(right-left) > 1)
-            return false;
-        bool leftSubtree = isBalanced(root->left);
-        bool rightSubtree = isBalanced(root->right);
-        if(!leftSubtree || !rightSubtree)
-            return false;
+        int h = height(root);
+        if(h == -1) return false;
         return true;
     }
+    // TC : O(N) * O(N) = O(N^2)
 };
