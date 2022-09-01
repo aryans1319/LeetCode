@@ -11,18 +11,28 @@
  */
 class Solution {
 public:
-    int count = 0;
-    void dfs(TreeNode *root,int currentMax){
-        if(root == NULL) return;
-        if(root->val >= currentMax){
-            count++;
-            currentMax = root->val;
-        }
-        dfs(root->left,currentMax);
-        dfs(root->right,currentMax);
-    }
     int goodNodes(TreeNode* root) {
-        dfs(root,INT_MIN);
+        int count = 0;
+        stack<pair<TreeNode*, int>> st;
+        st.push({root,root->val});
+        while (!st.empty()) {
+            TreeNode* node = st.top().first;
+            int maxValue = st.top().second;
+            st.pop();
+
+            if (maxValue <= node->val) {
+                count++;
+                maxValue = node->val;
+            }
+
+            if (node->right != NULL) {
+                st.push({node->right, maxValue});
+            }
+            if (node->left != NULL) {
+                st.push({node->left, maxValue});
+            }
+        }
+
         return count;
     }
 };
