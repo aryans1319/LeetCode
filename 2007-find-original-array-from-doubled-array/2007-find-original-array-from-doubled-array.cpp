@@ -1,7 +1,7 @@
 class Solution {
 public:
     vector<int> findOriginalArray(vector<int>& changed) {
-         int n = changed.size();
+        int n = changed.size();
         if (n % 2 == 1) return {};
         sort(changed.begin(), changed.end());
         vector<int> ans;
