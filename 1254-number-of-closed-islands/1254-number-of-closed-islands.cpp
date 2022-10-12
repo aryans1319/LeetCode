@@ -1,7 +1,7 @@
 class Solution {
 public:
      bool bfs(int row, int col, vector<vector<int>>&vis, vector<vector<int>>&grid, int del_row[], int del_col[]) {
-        if(vis[row][col]) return 1;
+        // if(vis[row][col]) return 1;
         queue<pair<int,int>>q;
         q.push({row,col}); 
         vis[row][col] = 1;
