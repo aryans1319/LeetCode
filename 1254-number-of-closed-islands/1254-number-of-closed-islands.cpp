@@ -1,22 +1,21 @@
 class Solution {
 public:
      bool dfs(int row, int col, vector<vector<int>>&vis, vector<vector<int>>&grid, int del_row[], int del_col[]) {
-        if(vis[row][col]) return 1;
+        // if(vis[row][col]) return 1;
         vis[row][col] = 1;
         bool isClosed = true;
         for(int i = 0; i < 4; i++){
             int nrow = row + del_row[i];
             int ncol = col + del_col[i];
             
-            if(nrow >=0 && nrow < grid.size() && ncol >= 0 && ncol < grid[0].size() && grid[nrow][ncol] == 0 && vis[nrow][ncol] == 0){
-                if(nrow == 0 || nrow == grid.size() - 1 || ncol == 0 || ncol == grid[0].size() - 1){
-                    isClosed = false;
-                }
-                else{
+               if(!(nrow >=0 && nrow < grid.size() && ncol >= 0 && ncol < grid[0].size())){
+                     isClosed = false;
+                 }
+            
+            if(nrow >=0 && nrow < grid.size() && ncol >= 0 && ncol < grid[0].size() && grid[nrow][ncol] == 0 && vis[nrow][ncol] == 0){   
                     isClosed = dfs(nrow, ncol, vis, grid,del_row, del_col) && isClosed;
                 }
-            }
-        } 
+            } 
         return isClosed;
     }
     int closedIsland(vector<vector<int>>& grid) {
