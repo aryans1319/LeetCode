@@ -18,7 +18,7 @@ public:
                 }
             }
         }
-        cout<<"ok";
+        
         int del_row[] = {-1, 0, +1, 0};
         int del_col[] = {0, +1, 0, -1};
         
@@ -45,3 +45,6 @@ public:
         return distanceMatrix;
     }
 };
+
+// TC : O(N*M*4);
+// SC : O(N*M) + O(N*M) + O(n) ~ O(N x M)
